@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de pago</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/checkout.css}">
+</head>
+
+<body>
+    <header class="navbar-metallic">
+        <div class="nav-container">
+            <nav class="nav-section nav-left">
+                <a th:href="@{/index}" class="nav-item">Inicio</a>
+                <span class="divider"></span>
+                <a th:href="@{/ofertas}" class="nav-item">Ofertas</a>
+                <span class="divider"></span>
+                <a th:href="@{/moda}" class="nav-item">Moda</a>
+            </nav>
+
+            <div class="logo-wrapper">
+                <div class="logo-circle">
+                    <img th:src="@{/Imagenes/Logo.png}" alt="Logo de la tienda" class="logo-img">
+                </div>
+            </div>
+
+            <nav class="nav-section nav-right">
+                <a th:href="@{/unico}" class="nav-item">Único</a>
+                <span class="divider"></span>
+                <a th:href="@{/personalizado}" class="nav-item">Personalizado</a>
+                <a href="#" id="user-icon" class="nav-item user-login-btn">
+                    <span class="user-avatar">👤</span>
+                </a>
+                <span class="divider"></span>
+
+                <div class="header-actions">
+                    <a th:href="@{/wishlist}" class="wishlist-header-btn" title="Ver mis Favoritos">
+                        <i class="fa-solid fa-heart"></i>
+                        <span class="wishlist-badge" id="wishlist-count">0</span>
+                    </a>
+
+                    <div class="cart-icon-container">
+                        <a th:href="@{/carrito}" class="cart-header-btn" title="Ver Carrito">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="checkout-container">
+        <section class="checkout-forms">
+
+            <div class="checkout-card" id="card-envio">
+                <button class="atras" id="btn-atras" type="button"> <-- </button>
+                        <h2>1. Datos del envio</h2>
+
+                        <div class="direcciones-grid">
+                            <label class="direccion-card checked">
+                                <input type="radio" name="opcion-direccion" value="registrada" checked>
+                                <div class="direccion-info">
+                                    <span class="tag-predeterminada">Predeterminada</span>
+                                    <h3>Ingresando Direccion</h3>
+                                    <p>Numero de Direccion</p>
+                                    <p>especificaciones de la casa...</p>
+                                    <p>Codigo Postal</p>
+                                </div>
+                            </label>
+
+                            <button type="button" id="btn-nueva-direccion" class="direccion-card-btn">
+                                <span class="icon-mas">+</span>
+                                <span>Agregar otra direccion</span>
+                            </button>
+                        </div>
+
+                        <div class="form-nueva-dir oculto" id="seccion-nueva-dir">
+                            <h3>Ingresar Nueva direccion</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="calle"> Direccion , Calle ,Altura</label>
+                                    <input type="text" id="calle" placeholder="Ej: Av.Rivadavia 8500">
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefono">Telefono</label>
+                                    <input type="text" id="telefono" placeholder="Teléfono / Celular">
+                                </div>
+                                <div class="form-group">
+                                    <label for="codPostal"> Codigo Postal</label>
+                                    <input type="text" id="codPostal" placeholder="Código Postal">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="especificaciones-casa"> especificaciones de casa</label>
+                                    <input type="text" id="especificaciones-casa" placeholder="Puerta Vidrio">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="enviar" type="button" id="btn-enviar-envio">Enviar</button>
+            </div>
+
+            <div class="checkout-card oculto" id="card-pago">
+                <button class="atras" id="btn-volver-envio" type="button"> <-- </button>
+                        <h2>2. Metodo de pago</h2>
+
+                        <div class="pago-opciones">
+                            <label class="pago-box">
+                                <input type="radio" name="metodo-pago" value="RAPIPAGO" checked>
+                                <div class="pago-content">
+                                    <span>Rapipago</span>
+                                    <small>Acreditación en 24 hs hábiles</small>
+                                </div>
+                            </label>
+
+                            <label class="pago-box">
+                                <input type="radio" name="metodo-pago" value="PAGOFACIL">
+                                <div class="pago-content">
+                                    <span>Pago Fácil</span>
+                                    <small>Acreditación en 24 hs hábiles</small>
+                                </div>
+                            </label>
+
+                            <label class="pago-box">
+                                <input type="radio" name="metodo-pago" value="DEBITO">
+                                <div class="pago-content">
+                                    <span>Tarjeta de Debito</span>
+                                    <small>Pago seguro Online</small>
+                                </div>
+                            </label>
+
+                            <label class="pago-box">
+                                <input type="radio" name="metodo-pago" value="CREDITO">
+                                <div class="pago-content">
+                                    <span>Tarjeta de Credito</span>
+                                    <small>hasta 3 cuotas sin interes</small>
+                                </div>
+                            </label>
+
+                            <label class="pago-box">
+                                <input type="radio" name="metodo-pago" value="QR">
+                                <div class="pago-content">
+                                    <span>Mercado pago o QR</span>
+                                    <small>Metodo QR </small>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="form-tarjeta" id="seccion-efectivo" style="text-align: center; padding: 20px;">
+                            <h3 id="titulo-red-efectivo">Código de Pago - Rapipago</h3>
+                            <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">Presentá este código en
+                                cualquier sucursal adherida para abonar.</p>
+
+                            <div
+                                style="background: #f9f9f9; padding: 20px; border-radius: 8px; display: inline-block; border: 1px solid #ddd;">
+                                <i class="fa-solid fa-barcode" style="font-size: 5rem; color: #333;"></i>
+                                <span id="codigo-barras-texto"
+                                    style="font-family: monospace; font-size: 1.2rem; font-weight: bold; display: block; margin-top: 10px; color: #000;">8492-3920-1029-5940</span>
+                            </div>
+
+                            <div style="margin-top: 15px;">
+                                <span style="font-weight: bold; color: #333; display: block;">Monto a abonar:
+                                    $15.000,00</span>
+                                <small style="color: #c0392b;">El ticket vence en 48 horas</small>
+                            </div>
+                        </div>
+
+                        <div class="form-tarjeta oculto" id="seccion-qr" style="text-align: center; padding: 20px;">
+                            <h3>Escaneá el código QR para pagar</h3>
+                            <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">Usted podrá escanear el
+                                código con su app de Mercado Pago o billetera virtual.</p>
+                            <div
+                                style="background: #f9f9f9; padding: 15px; border-radius: 8px; display: inline-block; border: 1px solid #ddd;">
+                                <i class="fa-solid fa-qrcode" style="font-size: 8rem; color: #009ee3;"></i>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <span style="font-weight: bold; color: #333; display: block;">Monto a pagar:
+                                    $15.000,00</span>
+                                <small style="color: #888;">El código expira en 15:00 minutos</small>
+                            </div>
+                        </div>
+
+                        <div class="form-tarjeta oculto" id="formulario-tarjeta">
+                            <h3>Datos de la tarjeta</h3>
+
+                            <div class="form-grid">
+                                <div class="form-group full-width">
+                                    <label for="numero-tarjeta">Número de la tarjeta</label>
+                                    <div style="position: relative; display: flex; align-items: center;">
+                                        <input type="text" id="numero-tarjeta" placeholder="0000 0000 0000 0000"
+                                            maxlength="19" style="width: 100%; padding-right: 45px;">
+                                        <span id="icono-tarjeta-marca"
+                                            style="position: absolute; right: 15px; font-size: 1.5rem; color: #ccc;">
+                                            <i class="fa-solid fa-credit-card"></i>
+                                        </span>
+                                    </div>
+                                    <small id="tipo-tarjeta-detectada"
+                                        style="font-weight: bold; color: #555; display: block; margin-top: 4px;"></small>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="nombre-tarjeta">Nombre impreso</label>
+                                    <input type="text" id="nombre-tarjeta" placeholder="Como figura en la tarjeta">
+                                </div>
+
+                                <div class="form-group full-width oculto" id="seccion-cuotas">
+                                    <label for="select-cuotas">Cantidad de Cuotas</label>
+                                    <select id="select-cuotas" class="form-control"
+                                        style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                                        <option value="1">1 pago (Sin interés)</option>
+                                        <option value="3">3 cuotas sin interés</option>
+                                        <option value="6">6 cuotas</option>
+                                        <option value="12">12 cuotas</option>
+                                    </select>
+                                    <small id="resumen-cuotas-texto"
+                                        style="color: #666; display: block; margin-top: 5px;"></small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="vencimiento">Vencimiento</label>
+                                    <input type="text" id="vencimiento" placeholder="MM/AA" maxlength="5">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="password" id="cvv" placeholder="123" maxlength="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="enviar" type="button" id="btn-finalizar-compra"> Finalizar Compra </button>
+            </div>
+
+        </section>
+
+        <aside class="checkout-summary">
+            <div class="summary-card">
+                <h2>Resumen de Compra</h2>
+
+                <div class="summary-items" id="summary-items-container">
+                </div>
+
+                <button type="button" id="btn-toggle-productos" class="oculto"
+                    style="background: none; border: none; color: #007bff; cursor: pointer; padding: 5px 0; font-size: 0.85rem; margin-bottom: 10px;">
+                    Ver más productos...
+                </button>
+
+                <hr>
+
+                <div class="summary-item" style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span id="cantidad-productos-texto">Productos (0)</span>
+                    <strong id="subtotal-texto">$0,00</strong>
+                </div>
+
+                <div class="summary-item"
+                    style="display: flex; justify-content: space-between; margin-bottom: 8px; color: #666; font-size: 0.9rem;">
+                    <span>Envío</span>
+                    <span style="color: green;">Gratis</span>
+                </div>
+
+                <hr>
+
+                <div class="total-row final"
+                    style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold;">
+                    <span>Total : </span>
+                    <strong id="total-final-texto">$0,00</strong>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <script th:src="@{/js/E-commerce.js}"></script>
+    <script th:src="@{/js/descripcion.js}"></script>
+    <script th:src="@{/js/checkout.js}"></script>
+
+</body>
+
+</html>

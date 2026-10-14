@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio | Tienda</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+  <header class="navbar-metallic">
+    <div class="nav-container">
+
+      <nav class="nav-section nav-left">
+        <a th:href="@{/index}" class="nav-item">Inicio</a>
+        <span class="divider"></span>
+        <a th:href="@{/ofertas}" class="nav-item">Ofertas</a>
+        <span class="divider"></span>
+        <a th:href="@{/moda}" class="nav-item">Moda</a>
+      </nav>
+
+      <div class="logo-wrapper">
+        <div class="logo-circle">
+          <img th:src="@{/Imagenes/Logo.png}" alt="Logo de la tienda" class="logo-img">
+        </div>
+      </div>
+
+      <nav class="nav-section nav-right">
+        <a th:href="@{/unico}" class="nav-item">Único</a>
+        <span class="divider"></span>
+        <a th:href="@{/personalizado}" class="nav-item">Personalizado</a>
+        <a href="#" id="user-icon" class="nav-item user-login-btn">
+          <span class="user-avatar">👤</span>
+        </a>
+        <span class="divider"></span>
+
+        <div class="header-actions">
+          <a th:href="@{/wishlist}" class="wishlist-header-btn" title="Ver mis Favoritos">
+            <i class="fa-solid fa-heart"></i>
+            <span class="wishlist-badge" id="wishlist-count">0</span>
+          </a>
+
+          <div class="cart-icon-container">
+            <a th:href="@{/carrito}" class="cart-header-btn" title="Ver Carrito">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="cart-badge" id="cart-count">0</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="products-container">
+
+    <section id="paso-seleccion" class="seleccion-personalizar">
+      <h2>Elige la prenda a personalizar</h2>
+
+      <div class="contenedor-opciones">
+        <button type="button" class="card-opcion" data-prenda="remera" data-nombre="Remera"
+          data-modelo="/objets/t_shirt.glb">
+          <div class="card-icon"><img th:src="@{/Imagenes/remera.png}" alt="Remera"></div>
+        </button>
+
+        <button type="button" class="card-opcion" data-prenda="buzo" data-nombre="Buzo"
+          data-modelo="/objets/hoodie.glb">
+          <div class="card-icon"><img th:src="@{/Imagenes/BUZO.png}" alt="Buzo"></div>
+        </button>
+
+        <button type="button" class="card-opcion" data-prenda="chomba" data-nombre="Chomba"
+          data-modelo="/objets/polo_shirt.glb">
+          <div class="card-icon"><img th:src="@{/Imagenes/chomba.png}" alt="Chomba"></div>
+        </button>
+      </div>
+    </section>
+
+    <section id="paso-personalizador" class="workspace-personalizador" style="display: none;">
+      <button id="btn-volver" class="btn-regresar" type="button">← Cambiar prenda</button>
+      <h2 id="titulo-prenda-actual">Editando: REMERA</h2>
+
+      <div class="contenedor-cards-editor">
+
+        <div class="card-editor card-preview">
+          <h3>1. VISTA PREVIA</h3>
+
+          <div id="contenedor-3d" class="visor-3d" style="position: relative; overflow: hidden;">
+            <model-viewer id="visor-remera" th:src="@{/objets/t_shirt.glb}" alt="Modelo 3D de remera" camera-controls
+              auto-rotate shadow-intensity="1" style="width: 100%; height: 100%;">
+            </model-viewer>
+
+            <div id="capa-estampado"
+              style="position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 5;">
+              <div id="estampa-contenido" style="text-align: center;">
+                <span id="estampa-texto"
+                  style="font-family: Arial, sans-serif; font-weight: bold; color: #ffffff; font-size: 20px; display: none; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);"></span>
+                <img id="estampa-imagen" src="" alt="Estampa" style="display: none; max-width: 120px; height: auto;" />
+              </div>
+            </div>
+          </div>
+          <p class="instruccion-3d">Modelo 3D Interactivo (Girar / Zoom)</p>
+        </div>
+
+        <div class="card-editor card-panel">
+          <h3>2. PANEL DE CONTROL</h3>
+          <div class="lista-filtros">
+
+            <details open class="grupo-filtro">
+              <summary>1. Género</summary>
+              <div class="contenido-filtro">
+                <div class="campo-opcion">
+                  <div class="selector-chips">
+                    <label class="chip-item">
+                      <input type="radio" name="genero" value="/objets/t_shirt.glb" checked>
+                      <span>Hombre</span>
+                    </label>
+                    <label class="chip-item">
+                      <input type="radio" name="genero" value="/objets/t-shirt_for_female.glb">
+                      <span>Mujer</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details class="grupo-filtro">
+              <summary>2. Material / Tela</summary>
+              <div class="contenido-filtro">
+                <div class="campo-opcion">
+                  <select id="select-material" class="input-select">
+                    <option value="algodon">Algodón</option>
+                    <option value="algodon-premium">Algodón Premium</option>
+                    <option value="poliester">Poliéster</option>
+                    <option value="pique">Piqué</option>
+                    <option value="frisa">Frisa</option>
+                    <option value="gabardina">Gabardina</option>
+                    <option value="lino">Lino</option>
+                  </select>
+                </div>
+              </div>
+            </details>
+
+            <details class="grupo-filtro">
+              <summary>3. Talle</summary>
+              <div class="contenido-filtro">
+                <div class="campo-opcion">
+                  <div class="selector-talles">
+                    <label class="talle-btn"><input type="radio" name="talle" value="XXS"><span>XXS</span></label>
+                    <label class="talle-btn"><input type="radio" name="talle" value="XS"><span>XS</span></label>
+                    <label class="talle-btn"><input type="radio" name="talle" value="S"><span>S</span></label>
+                    <label class="talle-btn"><input type="radio" name="talle" value="M" checked><span>M</span></label>
+                    <label class="talle-btn"><input type="radio" name="talle" value="L"><span>L</span></label>
+                    <label class="talle-btn"><input type="radio" name="talle" value="XL"><span>XL</span></label>
+                    <label class="talle-btn"><input type="radio" name="talle" value="XXL"><span>XXL</span></label>
+                    <label class="talle-btn"><input type="radio" name="talle" value="XXXL"><span>XXXL</span></label>
+                    <label class="talle-btn"><input type="radio" name="talle"
+                        value="Unitalla"><span>Unitalla</span></label>
+                  </div>
+                </div>
+              </div>
+            </details>
+
+            <details class="grupo-filtro">
+              <summary>4. Color de la prenda</summary>
+              <div class="contenido-filtro">
+                <div class="selector-colores-lista">
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#111111" checked>
+                    <span class="circulo-color" style="background-color: #111111;"></span>
+                    <span class="nombre-color">Negro</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#ffffff">
+                    <span class="circulo-color" style="background-color: #ffffff; border: 1px solid #ccc;"></span>
+                    <span class="nombre-color">Blanco</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#808080">
+                    <span class="circulo-color" style="background-color: #808080;"></span>
+                    <span class="nombre-color">Gris</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#1d4ed8">
+                    <span class="circulo-color" style="background-color: #1d4ed8;"></span>
+                    <span class="nombre-color">Azul</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#dc2626">
+                    <span class="circulo-color" style="background-color: #dc2626;"></span>
+                    <span class="nombre-color">Rojo</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#15803d">
+                    <span class="circulo-color" style="background-color: #15803d;"></span>
+                    <span class="nombre-color">Verde</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#f5f5dc">
+                    <span class="circulo-color" style="background-color: #f5f5dc; border: 1px solid #ccc;"></span>
+                    <span class="nombre-color">Beige</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#78350f">
+                    <span class="circulo-color" style="background-color: #78350f;"></span>
+                    <span class="nombre-color">Marrón</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#800020">
+                    <span class="circulo-color" style="background-color: #800020;"></span>
+                    <span class="nombre-color">Bordó</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-prenda" value="#38bdf8">
+                    <span class="circulo-color" style="background-color: #38bdf8;"></span>
+                    <span class="nombre-color">Celeste</span>
+                  </label>
+                </div>
+              </div>
+            </details>
+
+            <details class="grupo-filtro">
+              <summary>5. Tipo de personalización</summary>
+              <div class="contenido-filtro">
+                <div class="campo-opcion">
+                  <select id="tipo-personalizacion" class="input-select">
+                    <option value="ninguna">Sin personalización</option>
+                    <option value="texto">Texto / Nombre / Iniciales</option>
+                    <option value="archivo">Logo / Imagen / Diseño propio (PNG)</option>
+                  </select>
+                </div>
+
+                <div id="bloque-texto" style="display: none; margin-top: 10px;">
+                  <label for="campo-texto">Escribe tu texto:</label>
+                  <input type="text" id="campo-texto" placeholder="Escribe tu texto">
+                </div>
+
+                <div id="bloque-archivo" style="display: none; margin-top: 10px;">
+                  <label for="campo-archivo">Subir archivo (Solo PNG):</label>
+                  <input type="file" id="campo-archivo" accept=".png,image/png">
+                </div>
+
+                <div id="panel-posicion" style="margin-top: 10px; display: none;">
+                  <label>Posición X (Izquierda / Derecha):</label>
+                  <input type="range" id="posX" min="-100" max="100" value="0">
+
+                  <label>Posición Y (Arriba / Abajo):</label>
+                  <input type="range" id="posY" min="-100" max="100" value="0">
+
+                  <label>Tamaño / Escala:</label>
+                  <input type="range" id="escala" min="10" max="40" value="20">
+                </div>
+              </div>
+            </details>
+
+            <details id="bloque-color-texto" class="grupo-filtro">
+              <summary>6. Color del texto</summary>
+              <div class="contenido-filtro">
+                <div class="selector-colores-lista">
+                  <label class="item-color">
+                    <input type="radio" name="color-texto" value="#ffffff" checked>
+                    <span class="circulo-color" style="background-color: #ffffff; border: 1px solid #ccc;"></span>
+                    <span class="nombre-color">Blanco</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-texto" value="#111111">
+                    <span class="circulo-color" style="background-color: #111111;"></span>
+                    <span class="nombre-color">Negro</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-texto" value="#eab308">
+                    <span class="circulo-color" style="background-color: #eab308;"></span>
+                    <span class="nombre-color">Amarillo</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-texto" value="#dc2626">
+                    <span class="circulo-color" style="background-color: #dc2626;"></span>
+                    <span class="nombre-color">Rojo</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-texto" value="#1d4ed8">
+                    <span class="circulo-color" style="background-color: #1d4ed8;"></span>
+                    <span class="nombre-color">Azul</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-texto" value="#15803d">
+                    <span class="circulo-color" style="background-color: #15803d;"></span>
+                    <span class="nombre-color">Verde</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-texto" value="#a855f7">
+                    <span class="circulo-color" style="background-color: #a855f7;"></span>
+                    <span class="nombre-color">Violeta</span>
+                  </label>
+                  <label class="item-color">
+                    <input type="radio" name="color-texto" value="#ec4899">
+                    <span class="circulo-color" style="background-color: #ec4899;"></span>
+                    <span class="nombre-color">Rosa</span>
+                  </label>
+                </div>
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="card-precio-total">
+      <span class="etiqueta-precio">E-commerce:</span>
+      <span id="precio-total" class="monto-precio">PROXIMAMENTE</span>
+    </div>
+  </main>
+
+  <script th:src="@{/js/E-commerce.js}"></script>
+  <canvas id="canvas-textura" width="1024" height="1024" style="display: none;"></canvas>
+
+  <script type="module" th:src="@{/js/personalizado.js}"></script>
+
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  <script th:src="@{/js/wishlist.js}"></script>
+</body>
+
+</html>

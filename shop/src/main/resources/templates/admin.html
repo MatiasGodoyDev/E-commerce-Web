@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración Unificado - Shop</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+    <div id="login-admin-container" class="admin-container" style="max-width: 450px; margin-top: 100px;">
+        <header class="admin-header" style="text-align: center; margin-bottom: 20px;">
+            <h1>Acceso Restringido</h1>
+            <p style="color: #666; font-size: 14px;">Iniciá sesión para entrar al panel de control</p>
+        </header>
+
+        <form id="form-login-admin">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="login-email">Correo Electrónico:</label>
+                <input type="email" id="login-email" required placeholder="empleado@tienda.com"
+                    style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label for="login-password">Contraseña:</label>
+                <input type="password" id="login-password" required placeholder="********"
+                    style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; cursor: pointer;">Ingresar al
+                Panel</button>
+        </form>
+    </div>
+
+    <div id="admin-dashboard-container" class="admin-container wide" style="display: none;">
+        <header class="admin-header"
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div>
+                <h1>Panel de Control Admin</h1>
+                <p id="welcome-user-display" style="color: #4a5568; font-size: 0.95rem; margin-top: 4px;">
+                    Bienvenido, <span id="admin-nombre-apellido" style="font-weight: bold;">Cargando...</span>
+                </p>
+            </div>
+
+            <nav class="admin-nav">
+                <button class="nav-tab active" onclick="cambiarPestaña('productos', this)">📦 Productos</button>
+                <button class="nav-tab" onclick="cambiarPestaña('pedidos', this)">🚚 Pedidos y Envíos</button>
+                <button class="nav-tab" id="menu-usuarios" onclick="cambiarPestaña('usuarios', this)">👥 Usuarios /
+                    Empleados</button>
+                <button class="nav-tab" onclick="cambiarPestaña('perfil', this)">👤 Mi Perfil</button>
+            </nav>
+        </header>
+
+        <section id="tab-productos" class="tab-content active">
+            <h2>Cargar Nuevo Producto</h2>
+            <form id="admin-product-form">
+                <div class="form-section">
+                    <h3>Información Básica</h3>
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Producto:</label>
+                        <input type="text" id="nombre" required placeholder="Ej: Remera Oversize Cotton">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción:</label>
+                        <textarea id="descripcion" rows="3" required placeholder="Descripción detallada..."></textarea>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="precioBase">Precio Base ($):</label>
+                            <input type="number" id="precioBase" step="0.01" required placeholder="25000.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoría:</label>
+                            <input type="text" id="categoria" required placeholder="Ej: Remeras, Pantalones">
+                        </div>
+                        <div class="form-group">
+                            <label for="descuento">Descuento: </label>
+                            <input type="number" id="descuento" name="porcentajeDescuento" min="0" required
+                                placeholder="% de descuento">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="etiquetaDestacada">Etiqueta o Promoción:</label>
+                        <select id="etiquetaDestacada">
+                            <option value="NINGUNA">Ninguna</option>
+                            <option value="PROMOCION_2X1">Promoción 2x1</option>
+                            <option value="NUEVO">Nuevo</option>
+                            <option value="EXCLUSIVO">Exclusivo</option>
+                            <option value="EDICION_ILIMITADA">Edición Limitada</option>
+                            <option value="ESPECIAL">Especial</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Género:</label>
+                        <select id="genero" required>
+                            <option value="UNISEX">UNISEX</option>
+                            <option value="MASCULINO">HOMBRE</option>
+                            <option value="FEMENINO">MUJER</option>
+                            <option value="KIDS">Niños</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Imágenes de la Prenda</h3>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="imagenFrente">Imagen de Frente (PNG sin fondo):</label>
+                            <input type="file" id="imagenFrente" accept="image/png, image/webp" required>
+                            <div class="img-preview-box" style="margin-top: 10px;">
+                                <img id="previewFrente" src="" alt="Vista previa frente"
+                                    style="display: none; max-width: 120px; max-height: 120px; border-radius: 6px; border: 1px dashed #ccc; padding: 4px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="imagenEspalda">Imagen de Atrás / Espalda (PNG sin fondo):</label>
+                            <input type="file" id="imagenEspalda" accept="image/png, image/webp" required>
+                            <div class="img-preview-box" style="margin-top: 10px;">
+                                <img id="previewEspalda" src="" alt="Vista previa espalda"
+                                    style="display: none; max-width: 120px; max-height: 120px; border-radius: 6px; border: 1px dashed #ccc; padding: 4px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Especificaciones Técnicas</h3>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="corte">Tipo de Corte & Ajuste:</label>
+                            <select id="corte">
+                                <option value="REGULAR">Regular</option>
+                                <option value="SUELTO">Suelto</option>
+                                <option value="OVERSIZED">Oversized</option>
+                                <option value="AJUSTADO">Ajustado</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="material">Material Principal:</label>
+                            <select id="material">
+                                <option value="ALGODON">Algodón</option>
+                                <option value="POLIESTER">Poliéster</option>
+                                <option value="JEAN">Jean</option>
+                                <option value="GABARDINA">Gabardina</option>
+                                <option value="VISCOSA">Viscosa</option>
+                                <option value="FRISA">Frisa</option>
+                                <option value="LINO">Lino</option>
+                                <option value="MICROFIBRA">Microfibra</option>
+                                <option value="LYCRA">Lycra</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="estampado">Tipo de Estampado:</label>
+                            <select id="estampado">
+                                <option value="LISO">Liso</option>
+                                <option value="LETRAS">Letras</option>
+                                <option value="GRAFICO">Gráfico</option>
+                                <option value="COLOR_COMBINADO">Color combinado</option>
+                                <option value="A_RAYAS">A rayas</option>
+                                <option value="GEOMETRICO">Geométrico</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="temporada">Temporada:</label>
+                            <select id="temporada">
+                                <option value="VERANO">Verano</option>
+                                <option value="INVIERNO">Invierno</option>
+                                <option value="TODO_EL_ANO">Todo el año</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Etiquetas y Destacados</h3>
+                    <div class="checkbox-grid">
+                        <label><input type="checkbox" id="esNovedad"> Index</label>
+                        <label><input type="checkbox" id="esOferta"> Oferta</label>
+                        <label><input type="checkbox" id="esModa"> Moda</label>
+                        <label><input type="checkbox" id="esUnico"> Único</label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Variantes (Talles, Colores y Stock)</h3>
+                    <div id="variantes-container">
+                        <div class="variante-row">
+                            <select class="var-talle" required>
+                                <option value="" disabled selected>Seleccioná talle</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                            <input type="text" class="var-color" placeholder="Color (ej: Negro)" required>
+                            <input type="number" class="var-stock" placeholder="Stock" min="0" required>
+                            <button type="button" class="btn-remove" onclick="eliminarFilaVariante(this)">✕</button>
+                        </div>
+                    </div>
+                    <button type="button" id="btn-add-variant" class="btn-secondary">+ Agregar variante</button>
+                </div>
+
+                <button type="submit" class="btn-primary">Guardar Producto</button>
+            </form>
+        </section>
+
+        <section id="tab-pedidos" class="tab-content">
+            <h2>Gestión de Pedidos</h2>
+
+            <div class="filters-bar">
+                <button class="filter-btn active" onclick="filtrarPedidos('TODOS', this)">Todos</button>
+                <button class="filter-btn" onclick="filtrarPedidos('PENDIENTE', this)">Pendientes</button>
+                <button class="filter-btn" onclick="filtrarPedidos('PAGADO', this)">Pagados</button>
+                <button class="filter-btn" onclick="filtrarPedidos('RECIBIDO', this)">Recibido</button>
+                <button class="filter-btn" onclick="filtrarPedidos('DESPACHADO', this)">Despachados</button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>N° Orden</th>
+                            <th>Cliente</th>
+                            <th>Detalle de Compra</th>
+                            <th>Direccion</th>
+                            <th>Promociones</th>
+                            <th>Nro de prendas</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedidos-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="tab-usuarios" class="tab-content">
+            <h2>Gestión de Cuentas y Empleados</h2>
+
+            <form id="form-crear-usuario" style="margin-bottom: 30px;">
+                <h3>Registrar Nueva Cuenta</h3>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="user-nombre">Nombre:</label>
+                        <input type="text" id="user-nombre" required placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-apellido">Apellido</label>
+                        <input type="text" id="user-apellido" required placeholder="Romano Silvio">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email">Email / Usuario:</label>
+                        <input type="email" id="user-email" required placeholder="empleado@tienda.com">
+                    </div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="user-password">Contraseña Inicial:</label>
+                        <input type="text" id="user-password" required placeholder="Contraseña de acceso">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-rol">Rol / Acceso:</label>
+                        <select id="user-rol" required>
+                            <option value="EMPLEADO">Empleado (Lector/Operador)</option>
+                            <option value="ADMIN">Administrador (Acceso Total)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width: auto; padding: 10px 20px;">Crear
+                    Usuario</button>
+            </form>
+
+            <h3>Usuarios Registrados</h3>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuarios-tbody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="tab-perfil" class="tab-content">
+            <h2>Configuración de Mi Perfil</h2>
+            <p>Actualiza tus datos personales, correo y contraseña de acceso.</p>
+
+            <form id="form-perfil-admin" class="admin-form" style="max-width: 600px; margin-top: 20px;">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="perfil-nombre">Nombre:</label>
+                    <input type="text" id="perfil-nombre" required
+                        style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="perfil-apellido">Apellido:</label>
+                    <input type="text" id="perfil-apellido" required
+                        style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="perfil-email">Correo Electrónico:</label>
+                    <input type="email" id="perfil-email" required
+                        style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="perfil-telefono">Telefono:</label>
+                    <input type="number" id="perfil-telefono" required
+                        style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <hr style="margin: 25px 0; border: 0; border-top: 1px solid #e2e8f0;">
+
+                <h3>Cambiar Contraseña</h3>
+                <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Dejar en blanco si no deseas cambiar tu
+                    contraseña.</p>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="perfil-password-actual">Contraseña Actual:</label>
+                    <input type="password" id="perfil-password-actual" placeholder="••••••••"
+                        style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label for="perfil-password-nueva">Nueva Contraseña:</label>
+                    <input type="password" id="perfil-password-nueva" placeholder="••••••••"
+                        style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div class="form-group" style="margin-bottom: 5px;">
+                    <label for="perfil-password-repetir">Repetir Nueva Contraseña:</label>
+                    <input type="password" id="perfil-password-repetir" placeholder="••••••••"
+                        style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <div id="error-password-match"
+                    style="color: #e53e3e; font-size: 0.85rem; margin-bottom: 20px; display: none; font-weight: bold;">
+                    ⚠️ Las nuevas contraseñas no coinciden.
+                </div>
+
+                <button type="submit" id="btn-guardar-perfil" class="btn-primary"
+                    style="padding: 12px 20px; cursor: pointer; margin-top: 10px;">Guardar Cambios</button>
+                <button type="button" onclick="cerrarSesion()" class="btn-cerrar-sesion">Cerrar Sesión</button>
+            </form>
+        </section>
+    </div>
+
+    <script th:src="@{/js/E-commerce.js}"></script>
+    <script th:src="@{/js/admin.js}"></script>
+</body>
+
+</html>

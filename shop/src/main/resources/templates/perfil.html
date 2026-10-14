@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Panel de Usuario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+
+    <header class="navbar-metallic">
+        <div class="nav-container">
+
+            <nav class="nav-section nav-left">
+                <a th:href="@{/index}" class="nav-item">Inicio</a>
+                <span class="divider"></span>
+                <a th:href="@{/ofertas}" class="nav-item">Ofertas</a>
+                <span class="divider"></span>
+                <a th:href="@{/moda}" class="nav-item">Moda</a>
+            </nav>
+
+            <div class="logo-wrapper">
+                <div class="logo-circle">
+                    <img th:src="@{/Imagenes/Logo.png}" alt="Logo de la tienda" class="logo-img">
+                </div>
+            </div>
+
+            <nav class="nav-section nav-right">
+                <a th:href="@{/unico}" class="nav-item">Único</a>
+                <span class="divider"></span>
+                <a th:href="@{/personalizado}" class="nav-item">Personalizado</a>
+                <a>
+                    <span class="user-avatar">👤</span>
+                </a>
+                <span class="divider"></span>
+
+                <div class="header-actions">
+                    <a th:href="@{/wishlist}" class="wishlist-header-btn" title="Ver mis Favoritos">
+                        <i class="fa-solid fa-heart"></i>
+                        <span class="wishlist-badge" id="wishlist-count">0</span>
+                    </a>
+
+                    <div class="cart-icon-container">
+                        <a th:href="@{/carrito}" class="cart-header-btn" title="Ver Carrito">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="perfil-container">
+
+        <aside class="perfil-sidebar">
+            <div class="usuario-avatar-seccion">
+                <div class="avatar-circulo" id="sidebar-iniciales"></div>
+            </div>
+            <h3 id="sidebar-nombre">...</h3>
+            <p class="rol-tag" id="sidebar-rol">Clientes</p>
+            </div>
+
+            <nav class="perfil-menu">
+                <button type="button" class="menu-btn activo" data-tab="datos">👤 Mis Datos</button>
+                <button type="button" class="menu-btn" data-tab="direcciones">📍 Direcciones</button>
+                <button type="button" class="menu-btn" data-tab="historial">📦 Mis Compras</button>
+                <hr class="menu-divisor">
+                <a th:href="@{/index}" class="menu-link-salir">🚪 Cerrar Sesión</a>
+            </nav>
+        </aside>
+
+        <section class="perfil-contenido">
+
+            <div id="tab-datos" class="tab-seccion">
+                <h2>Mis Datos Personales</h2>
+                <p class="tab-subtitulo">Gestioná tu información básica y de acceso.</p>
+
+                <form id="form-datos-personales" class="form-grid">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="email">Correo Electrónico (No modificable)</label>
+                        <input type="email" id="email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="password-actual">Contraseña Actual</label>
+                        <input type="password" id="password-actual" placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-nueva">Nueva Contraseña</label>
+                        <input type="password" id="password-nueva" placeholder="Dejar en blanco si no cambiás">
+                    </div>
+                    <button type="submit" class="btn-guardar">Guardar Cambios</button>
+                </form>
+            </div>
+
+            <div id="tab-direcciones" class="tab-seccion oculto">
+                <h2>Mis Direcciones de Envío</h2>
+                <p class="tab-subtitulo">Configurá el lugar predeterminado donde recibís la ropa.</p>
+
+                <form id="form-direccion" class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="calle-perfil">Dirección, Calle y Altura</label>
+                        <input type="text" id="calle-perfil" placeholder="Ej: Av. Corrientes 1234">
+                    </div>
+                    <div class="form-group">
+                        <label for="especificaciones-perfil">Piso / Depto / Casa</label>
+                        <input type="text" id="especificaciones-perfil" placeholder="Ej: Piso 2">
+                    </div>
+                    <div class="form-group">
+                        <label for="codPostal-perfil">Código Postal</label>
+                        <input type="text" id="codPostal-perfil" placeholder="Ej: 2222">
+                    </div>
+                    <button type="submit" class="btn-guardar">Actualizar Dirección</button>
+                </form>
+            </div>
+
+            <div id="tab-historial" class="tab-seccion oculto">
+                <h2>Historial de Compras</h2>
+                <p class="tab-subtitulo">Revisá tus pedidos anteriores y el estado de los envíos.</p>
+
+                <div class="compras-lista" id="contenedor-compras">
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script th:src="@{/js/E-commerce.js}"></script>
+    <script th:src="@{/js/perfil.js}"></script>
+</body>
+
+</html>

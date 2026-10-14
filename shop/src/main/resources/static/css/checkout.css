@@ -1,0 +1,336 @@
+.oculto {
+    display: none !important;
+}
+
+.checkout-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 5%;
+    height: 100%;
+    width: 100%;
+}
+
+.checkout-forms {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.checkout-summary {
+    flex: 1;
+    position: sticky;
+    top: 2rem;
+}
+
+.checkout-card,
+.summary-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.checkout-card h2,
+.summary-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+}
+
+.atras {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #888;
+    cursor: pointer;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    transition: color 0.2s;
+}
+
+.atras:hover {
+    color: #333;
+}
+
+.enviar {
+    display: block;
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background-color 0.2s;
+}
+
+.enviar:hover {
+    background-color: #222222;
+}
+
+.direcciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.direccion-card {
+    border: 2px solid #e1e4e6;
+    border-radius: 8px;
+    padding: 1.2rem;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.direccion-card input[type="radio"] {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    accent-color: #000;
+}
+
+
+.direccion-card.checked {
+    border-color: #000000;
+    background-color: #fafafa;
+}
+
+.tag-predeterminada {
+    display: inline-block;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.direccion-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.direccion-info p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+.direccion-card-btn {
+    border: 2px dashed #cccccc;
+    background: none;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    min-height: 120px;
+    color: #666;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.direccion-card-btn:hover {
+    background-color: #f9f9f9;
+    border-color: #888888;
+}
+
+.icon-mas {
+    font-size: 1.8rem;
+    font-weight: 300;
+}
+
+.pago-opciones {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.pago-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 2px solid #e1e4e6;
+    border-radius: 8px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.pago-box input[type="radio"] {
+    accent-color: #000;
+}
+
+.pago-box:has(input:checked) {
+    border-color: #000000;
+    background-color: #fafafa;
+}
+
+.pago-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.pago-content span {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.pago-content small {
+    color: #777;
+    margin-top: 0.2rem;
+}
+
+.form-nueva-dir,
+.form-tarjeta {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e1e4e6;
+}
+
+.form-nueva-dir h3,
+.form-tarjeta h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input {
+    padding: 0.8rem;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #000000;
+}
+
+.btn-cancelar {
+    grid-column: span 2;
+    background: none;
+    border: 1px solid #cccccc;
+    padding: 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #666;
+    transition: background-color 0.2s;
+}
+
+.btn-cancelar:hover {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.summary-card hr {
+    border: none;
+    border-top: 1px solid #e1e4e6;
+    margin: 1.5rem 0;
+}
+
+.summary-item,
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 0.8rem;
+}
+
+.total-row.final {
+    font-size: 1.2rem;
+    color: #000000;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+#sugerencias-autocomplete {
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 8px !important;
+    max-height: 220px !important;
+    overflow-y: auto !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12) !important;
+    margin-top: 4px !important;
+    padding: 4px 0 !important;
+    z-index: 999999 !important;
+}
+
+#sugerencias-autocomplete div {
+    padding: 10px 14px !important;
+    font-size: 0.88rem !important;
+    color: #333333 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+    border-bottom: 1px solid #f5f5f5 !important;
+}
+
+#sugerencias-autocomplete div:last-child {
+    border-bottom: none !important;
+}
+
+#sugerencias-autocomplete div:hover {
+    background-color: #f0f4ff !important;
+    color: #0056b3 !important;
+}
+
+@media (max-width: 768px) {
+    .checkout-container {
+        flex-direction: column;
+    }
+
+    .checkout-summary {
+        position: static;
+        width: 100%;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+
+    .btn-cancelar {
+        grid-column: span 1;
+    }
+}

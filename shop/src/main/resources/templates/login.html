@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Metallic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+  <header class="navbar-metallic">
+    <div class="nav-container">
+
+      <nav class="nav-section nav-left">
+        <a th:href="@{/index}" class="nav-item">Inicio</a>
+        <span class="divider"></span>
+        <a th:href="@{/ofertas}" class="nav-item">Ofertas</a>
+        <span class="divider"></span>
+        <a th:href="@{/moda}" class="nav-item">Moda</a>
+      </nav>
+
+      <div class="logo-wrapper">
+        <div class="logo-circle">
+          <img th:src="@{/Imagenes/Logo.png}" alt="Logo de la tienda" class="logo-img">
+        </div>
+      </div>
+
+      <nav class="nav-section nav-right">
+        <a th:href="@{/unico}" class="nav-item">Único</a>
+        <span class="divider"></span>
+        <a th:href="@{/personalizado}" class="nav-item">Personalizado</a>
+        <a th:href="@{/login}" class="nav-item user-login-btn" id="user-icon">
+          <span class="user-avatar">👤</span>
+        </a>
+        <span class="divider"></span>
+
+        <div class="header-actions">
+          <a th:href="@{/wishlist}" class="wishlist-header-btn" title="Ver mis Favoritos">
+            <i class="fa-solid fa-heart"></i>
+            <span class="wishlist-badge" id="wishlist-count">0</span>
+          </a>
+
+          <div class="cart-icon-container">
+            <a th:href="@{/carrito}" class="cart-header-btn" title="Ver Carrito">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="cart-badge" id="cart-count">0</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <div class="login-container">
+
+    <form class="login-card" id="form-login-view">
+      <h2>Iniciar Sesión</h2>
+
+      <div class="input-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+      </div>
+
+      <div class="options-group">
+        <label class="remember-me">
+          <input type="checkbox" id="remember">
+          <span>Recordar contraseña</span>
+        </label>
+        <a href="javascript:void(0)" class="forgot-link" id="open-recovery">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <div class="actions-group">
+        <button type="submit" class="btn btn-login">Iniciar Sesión</button>
+        <button type="button" class="btn btn-register" id="go-to-register">Registrarse</button>
+      </div>
+    </form>
+
+    <form class="login-card oculto" id="form-register-view">
+      <h2>Crear una Cuenta</h2>
+
+      <div class="form-scroll-container">
+        <div class="input-row-twin">
+          <div class="input-group">
+            <label for="reg-nombre">Nombre</label>
+            <input type="text" id="reg-nombre" placeholder="Juan Manuel" required>
+          </div>
+          <div class="input-group">
+            <label for="reg-apellido">Apellido</label>
+            <input type="text" id="reg-apellido" placeholder="Belgrano" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-telefono">Teléfono / Celular</label>
+          <input type="tel" id="reg-telefono" placeholder="Ej: 11 2345 6789" required>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-domicilio">Domicilio (Calle y Altura)</label>
+          <input type="text" id="reg-domicilio" placeholder="Av. Rivadavia 1234" required>
+        </div>
+
+        <div class="input-row-twin">
+          <div class="input-group">
+            <label for="reg-piso">Piso / Depto / Casa</label>
+            <input type="text" id="reg-piso" placeholder="Piso 2 Depto B">
+          </div>
+          <div class="input-group">
+            <label for="reg-cp">Código Postal</label>
+            <input type="text" id="reg-cp" placeholder="1407" required>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-descripcion">Aclaraciones sobre la entrega (Opcional)</label>
+          <input type="text" id="reg-descripcion" placeholder="Ej: Portón negro, tocar timbre que no anda bien...">
+        </div>
+
+        <div class="input-group">
+          <label for="reg-email">Correo electrónico</label>
+          <input type="email" id="reg-email" placeholder="ejemplo@correo.com" required>
+        </div>
+
+        <div class="input-group">
+          <label for="reg-password">Contraseña</label>
+          <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" required>
+        </div>
+      </div>
+
+      <div class="actions-group">
+        <button type="submit" class="btn btn-login">Confirmar Registro</button>
+        <button type="button" class="btn btn-secondary-toggle" id="go-to-login">Ya tengo cuenta</button>
+      </div>
+    </form>
+
+  </div>
+
+  <div id="recovery-modal" class="modal-overlay">
+    <div class="modal-box">
+      <span class="close-btn" id="close-recovery-btn">&times;</span>
+      <h3>Recuperar Contraseña</h3>
+      <p>Ingresa tu correo para verificar la cuenta.</p>
+
+      <form id="recovery-form">
+        <div class="input-row">
+          <label for="recovery-email">Email:</label>
+          <input type="email" id="recovery-email" placeholder="ejemplo@correo.com" required>
+          <button type="submit" class="btn-submit">Recuperar contraseña</button>
+        </div>
+        <p id="recovery-message" class="response-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <script th:src="@{/js/E-commerce.js}"></script>
+  <script th:src="@{/js/login.js}"></script>
+</body>
+
+</html>

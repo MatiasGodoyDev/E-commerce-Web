@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Metallic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/carrito.css}">
+</head>
+
+<body>
+
+  <header class="navbar-metallic">
+    <div class="nav-container">
+
+      <nav class="nav-section nav-left">
+        <a th:href="@{/index}" class="nav-item">Inicio</a>
+        <span class="divider"></span>
+        <a th:href="@{/ofertas}" class="nav-item">Ofertas</a>
+        <span class="divider"></span>
+        <a th:href="@{/moda}" class="nav-item">Moda</a>
+      </nav>
+
+      <div class="logo-wrapper">
+        <div class="logo-circle">
+          <img th:src="@{/Imagenes/Logo.png}" alt="Logo de la tienda" class="logo-img">
+        </div>
+      </div>
+
+      <nav class="nav-section nav-right">
+        <a th:href="@{/unico}" class="nav-item">Único</a>
+        <span class="divider"></span>
+        <a th:href="@{/personalizado}" class="nav-item">Personalizado</a>
+        <a href="#" id="user-icon" class="nav-item user-login-btn">
+          <span class="user-avatar">👤</span>
+        </a>
+        <span class="divider"></span>
+
+        <div class="header-actions">
+          <a th:href="@{/wishlist}" class="wishlist-header-btn" title="Ver mis Favoritos">
+            <i class="fa-solid fa-heart"></i>
+            <span class="wishlist-badge" id="wishlist-count">0</span>
+          </a>
+
+          <div class="cart-icon-container">
+            <a th:href="@{/}" class="cart-header-btn" title="Ver Carrito">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="cart-badge" id="cart-count">0</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <div class="cart-container">
+    <h1 class="cart-title">Tu Carrito de Compras</h1>
+
+    <div class="cart-grid">
+      <div class="cart-items-list" id="cart-items-container">
+      </div>
+
+      <div class="cart-summary">
+        <div class="summary-header">Resumen del Pedido</div>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="summary-subtotal">$0.00</span>
+        </div>
+        <div class="summary-row">
+          <span>Envío</span>
+          <span style="color: #2e7d32; font-weight: 600;">Gratis</span>
+        </div>
+
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="summary-total">$0.00</span>
+        </div>
+
+        <button class="btn-checkout" id="btn-finalizar-compra">Finalizar Compra</button>
+      </div>
+    </div>
+  </div>
+  <script th:src="@{/js/E-commerce.js}"></script>
+  <script th:src="@{/js/carrito.js}"></script>
+
+</body>
+
+</html>

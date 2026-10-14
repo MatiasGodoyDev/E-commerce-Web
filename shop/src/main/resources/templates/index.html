@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Metallic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+  <header class="navbar-metallic">
+    <div class="nav-container">
+
+      <nav class="nav-section nav-left">
+        <a th:href="@{/index}" class="nav-item">Inicio</a>
+        <span class="divider"></span>
+        <a th:href="@{/ofertas}" class="nav-item">Ofertas</a>
+        <span class="divider"></span>
+        <a th:href="@{/moda}" class="nav-item">Moda</a>
+      </nav>
+
+      <div class="logo-wrapper">
+        <div class="logo-circle">
+          <img th:src="@{/Imagenes/Logo.png}" alt="Logo de la tienda" class="logo-img">
+        </div>
+      </div>
+
+      <nav class="nav-section nav-right">
+        <a th:href="@{/unico}" class="nav-item">Único</a>
+        <span class="divider"></span>
+        <a th:href="@{/personalizado}" class="nav-item">Personalizado</a>
+
+        <a th:href="@{/login}" id="user-icon" class="nav-item user-login-btn user-avatar-link">
+          <span class="user-avatar">👤</span>
+        </a>
+
+        <span class="divider"></span>
+
+        <div class="header-actions">
+          <a th:href="@{/wishlist}" class="wishlist-header-btn" title="Ver mis Favoritos">
+            <i class="fa-solid fa-heart"></i>
+            <span class="wishlist-badge" id="wishlist-count">0</span>
+          </a>
+
+          <div class="cart-icon-container">
+            <a th:href="@{/carrito}" class="cart-header-btn" title="Ver Carrito">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="cart-badge" id="cart-count">0</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <section class="products-container">
+
+    <div class="barra-superior-productos">
+
+
+      <div class="contador-productos"></div>
+
+      <div class="contenedor-ordenar">
+        <label for="selectOrdenar">Ordenar por:</label>
+        <select id="selectOrdenar" class="select-ordenar">
+          <option value="relevantes">Más relevantes</option>
+          <option value="precio-bajo">Menor precio</option>
+          <option value="precio-alto">Mayor precio</option>
+          <option value="novedades">Novedades</option>
+          <option value="mas-vendidos">Más vendidos</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="main-content-layout">
+
+      <div class="products-grid" id="products-grid">
+        <article class="tarjeta-producto" th:each="p : ${productos}" th:data-producto-id="${p.id}"
+          th:data-variante-id="${p.variantes != null and !p.variantes.isEmpty() ? p.variantes[0].id : 1}"
+          th:data-genero="${p.genero != null ? p.genero.name().toLowerCase() : ''}"
+          th:data-estado="${p.esNovedad ? 'novedades' : (p.esOferta ? 'ofertas' : 'normal')}"
+          th:data-categoria="${p.categoria != null ? p.categoria.toLowerCase() : ''}" th:data-precio="${p.precioFinal}"
+          th:data-corte="${p.tipoCorte != null ? p.tipoCorte.name().toLowerCase() : ''}"
+          th:data-material="${p.materialPrincipal != null ? p.materialPrincipal.toLowerCase() : ''}"
+          th:data-estampado="${p.tipoEstampado != null ? p.tipoEstampado.name().toLowerCase() : ''}"
+          th:data-temporada="${p.temporada != null ? p.temporada.name().toLowerCase() : ''}">
+
+          <div class="product-image-box">
+            <button class="action-btn wishlist-btn" title="Añadir a Favoritos" type="button">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <img th:if="${p.imagenFrente != null and !p.imagenFrente.isEmpty()}" th:src="${p.imagenFrente}"
+              alt="Prenda frente" class="product-png product-front" />
+
+            <img th:if="${p.imagenEspalda != null and !p.imagenEspalda.isEmpty()}" th:src="${p.imagenEspalda}"
+              alt="Prenda espalda" class="product-png product-back" />
+
+            <button class="action-btn add-to-cart-btn" title="Añadir al Carrito" type="button">
+              <i class="fa-solid fa-cart-plus"></i>
+            </button>
+          </div>
+
+          <div class="product-info">
+            <h3 class="product-name" th:text="${p.nombre}">Nombre del producto</h3>
+            <span class="product-price" th:text="${'$' + p.precioFinal}">$0.00</span>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <script th:src="@{/js/E-commerce.js}"></script>
+
+</body>
+
+</html>

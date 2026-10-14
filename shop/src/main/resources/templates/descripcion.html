@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${producto.nombre} + ' - Tu Tienda de Ropa'">Detalle del Producto - Tu Tienda de Ropa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/descripcion.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+    <header class="navbar-metallic">
+        <div class="nav-container">
+
+            <nav class="nav-section nav-left">
+                <a th:href="@{/index}" class="nav-item">Inicio</a>
+                <span class="divider"></span>
+                <a th:href="@{/ofertas}" class="nav-item">Ofertas</a>
+                <span class="divider"></span>
+                <a th:href="@{/moda}" class="nav-item">Moda</a>
+            </nav>
+
+            <div class="logo-wrapper">
+                <div class="logo-circle">
+                    <img th:src="@{/Imagenes/Logo.png}" alt="Logo de la tienda" class="logo-img">
+                </div>
+            </div>
+
+            <nav class="nav-section nav-right">
+                <a th:href="@{/unico}" class="nav-item">Único</a>
+                <span class="divider"></span>
+                <a th:href="@{/personalizado}" class="nav-item">Personalizado</a>
+                <a href="#" id="user-icon" class="nav-item user-login-btn">
+                    <span class="user-avatar">👤</span>
+                </a>
+                <span class="divider"></span>
+
+                <div class="header-actions">
+                    <a th:href="@{/wishlist}" class="wishlist-header-btn" title="Ver mis Favoritos">
+                        <i class="fa-solid fa-heart"></i>
+                        <span class="wishlist-badge" id="wishlist-count">0</span>
+                    </a>
+
+                    <div class="cart-icon-container">
+                        <a th:href="@{/carrito}" class="cart-header-btn" title="Ver Carrito">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="cart-badge" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <main class="producto-detalle-container" th:data-producto-id="${producto.id}">
+
+        <section class="producto-galeria">
+            <div class="imagen-principal-container">
+                <img id="foto-principal"
+                    th:src="${producto.imagenFrente != null ? producto.imagenFrente : '/Imagenes/frente-removebg-preview.png'}"
+                    th:alt="${producto.nombre}">
+            </div>
+
+            <div class="imagenes-miniaturas">
+                <img th:if="${producto.imagenFrente != null}" class="miniatura activa" th:src="${producto.imagenFrente}"
+                    th:alt="${producto.nombre + ' frente'}">
+
+                <img th:if="${producto.imagenEspalda != null and !producto.imagenEspalda.isEmpty()}" class="miniatura"
+                    th:src="${producto.imagenEspalda}" th:alt="${producto.nombre + ' espalda'}">
+            </div>
+        </section>
+
+        <section class="producto-info">
+
+            <div class="info-cabecera">
+                <span class="tag-oferta" th:if="${producto.porcentajeDescuento > 0}"
+                    th:text="${producto.porcentajeDescuento + '% OFF'}">20% OFF</span>
+                <h1 th:text="${producto.nombre}">Remera Over-Size Algodón Premium</h1>
+                <p class="sku" th:text="'Código: #REM-' + ${producto.id}">Código: #REM-0042</p>
+            </div>
+
+            <div class="info-precios">
+                <span class="precio-viejo" th:if="${producto.porcentajeDescuento > 0}"
+                    th:text="${'$' + producto.precioBase}">$18.750,00</span>
+                <span class="precio-actual" th:text="${'$' + producto.getPrecioFinal()}">$15.000,00</span>
+            </div>
+
+            <p class="info-descripcion" th:text="${producto.descripcion}">
+                Remera de corte holgado confeccionada en algodón 100% peinado...
+            </p>
+
+            <hr class="divisor">
+
+            <div class="selector-grupo">
+                <h3>Color: <span id="color-seleccionado">Seleccionar</span></h3>
+                <div class="opciones-colores">
+                    <button type="button" class="color-circulo" th:each="v, iterStat : ${producto.variantes}"
+                        th:classappend="${iterStat.index == 0} ? 'activo'"
+                        th:style="'background-color: ' + ${v.colorHex} + ';'" th:data-color="${v.color}"
+                        th:title="${v.color}">
+                    </button>
+                </div>
+            </div>
+
+            <div class="selector-grupo">
+                <h3>Talle: <span id="talle-seleccionado">Seleccionar</span></h3>
+                <div class="opciones-talles">
+                    <button type="button" class="talle-boton" th:each="v, iterStat : ${producto.variantes}"
+                        th:classappend="${iterStat.index == 0} ? 'activo'" th:text="${v.talle}"
+                        th:data-stock="${v.stock}">
+                    </button>
+                </div>
+                <a href="#">
+                    <p> Guia de Talles</p>
+                </a>
+            </div>
+
+            <div class="selector-grupo cantidad-bloque">
+                <h3>Cantidad:</h3>
+                <div class="cantidad-control">
+                    <button type="button" id="btn-restar">-</button>
+                    <span id="cantidad-numero">1</span>
+                    <button type="button" id="btn-sumar">+</button>
+                </div>
+                <span class="stock-disponible" id="stock-texto">(Seleccioná talle y color)</span>
+            </div>
+
+            <div class="acciones-compra">
+                <button type="button" id="btn-comprar" class="btn-comprar"> Comprar Ahora </button>
+                <button type="button" id="btn-agregar-carrito" class="btn-principal">🛒</button>
+                <button type="button" id="btn-favorito" class="btn-corazon" title="Añadir a favoritos">❤️</button>
+            </div>
+
+            <div class="especificaciones-tecnicas">
+                <p><strong>Corte:</strong> <span th:text="${producto.tipoCorte}">OVERSIZE</span></p>
+                <p><strong>Género:</strong> <span th:text="${producto.genero}">UNISEX</span></p>
+                <p><strong>Temporada:</strong> <span th:text="${producto.temporada}">CONTINUO</span></p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script th:src="@{/js/E-commerce.js}"></script>
+    <script th:src="@{/js/descripcion.js}"></script>
+</body>
+
+</html>

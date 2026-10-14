@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Metallic</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+  <header class="navbar-metallic">
+    <div class="nav-container">
+
+      <nav class="nav-section nav-left">
+        <a th:href="@{/index}" class="nav-item">Inicio</a>
+        <span class="divider"></span>
+        <a th:href="@{/ofertas}" class="nav-item">Ofertas</a>
+        <span class="divider"></span>
+        <a th:href="@{/}" class="nav-item">Moda</a>
+      </nav>
+
+      <div class="logo-wrapper">
+        <div class="logo-circle">
+          <img th:src="@{/Imagenes/Logo.png}" alt="Logo de la tienda" class="logo-img">
+        </div>
+      </div>
+
+      <nav class="nav-section nav-right">
+        <a th:href="@{/unico}" class="nav-item">Único</a>
+        <span class="divider"></span>
+        <a th:href="@{/personalizado}" class="nav-item">Personalizado</a>
+        <a href="#" id="user-icon" class="nav-item user-login-btn">
+          <span class="user-avatar">👤</span>
+        </a>
+        <span class="divider"></span>
+
+        <div class="header-actions">
+          <a th:href="@{/wishlist}" class="wishlist-header-btn" title="Ver mis Favoritos">
+            <i class="fa-solid fa-heart"></i>
+            <span class="wishlist-badge" id="wishlist-count">0</span>
+          </a>
+
+          <div class="cart-icon-container">
+            <a th:href="@{/carrito}" class="cart-header-btn" title="Ver Carrito">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="cart-badge" id="cart-count">0</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+  <section class="products-container">
+
+    <div class="barra-superior-productos">
+      <button class="btn-menu-filtros" aria-label="Abrir filtros">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="contador-productos"></div>
+
+      <div class="contenedor-ordenar">
+        <label for="selectOrdenar">Ordenar por:</label>
+        <select id="selectOrdenar" class="select-ordenar">
+          <option value="relevantes">Más relevantes</option>
+          <option value="precio-bajo">Menor precio</option>
+          <option value="precio-alto">Mayor precio</option>
+          <option value="novedades">Novedades</option>
+          <option value="mas-vendidos">Más vendidos</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="main-content-layout">
+
+      <aside class="sidebar-filtros" id="sidebarFiltros">
+        <div class="sidebar-header">
+          <h3>Filtros</h3>
+          <button class="btn-cerrar-filtros" id="btnCerrarFiltros">&times;</button>
+        </div>
+
+        <div class="sidebar-contenido">
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Género</summary>
+            <div class="lista-opciones">
+              <label><input type="checkbox"> Mujer</label>
+              <label><input type="checkbox"> Hombre</label>
+              <label><input type="checkbox"> Niños</label>
+              <label><input type="checkbox"> Niñas</label>
+              <label><input type="checkbox"> Bebés</label>
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Estado</summary>
+            <div class="lista-opciones">
+              <label><input type="checkbox"> Ofertas</label>
+              <label><input type="checkbox"> Novedades</label>
+              <label><input type="checkbox"> Más vendidos</label>
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Categorías</summary>
+            <div class="lista-opciones">
+              <label><input type="checkbox"> Remeras</label>
+              <label><input type="checkbox"> Pantalones</label>
+              <label><input type="checkbox"> Camperas</label>
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Precio</summary>
+            <div class="precio-cajas">
+              <input type="number" placeholder="Mínimo" min="0" class="input-precio">
+              <span>-</span>
+              <input type="number" placeholder="Máximo" min="0" class="input-precio">
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Talla</summary>
+            <div class="grilla-tallas">
+              <button type="button" class="btn-talla">XXS</button>
+              <button type="button" class="btn-talla">XS</button>
+              <button type="button" class="btn-talla">S</button>
+              <button type="button" class="btn-talla">M</button>
+              <button type="button" class="btn-talla">L</button>
+              <button type="button" class="btn-talla">XL</button>
+              <button type="button" class="btn-talla">XXL</button>
+              <button type="button" class="btn-talla">XXXL</button>
+              <button type="button" class="btn-talla">Unitalla</button>
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Color</summary>
+            <div class="grilla-colores">
+              <span class="circulo-color color-negro" title="Negro"></span>
+              <span class="circulo-color color-blanco" title="Blanco"></span>
+              <span class="circulo-color color-rojo" title="Rojo"></span>
+              <span class="circulo-color color-azul" title="Azul"></span>
+              <span class="circulo-color color-verde" title="Verde"></span>
+              <span class="circulo-color color-gris" title="Gris"></span>
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Tipo de corte & ajuste</summary>
+            <div class="lista-opciones">
+              <label><input type="checkbox"> Regular</label>
+              <label><input type="checkbox"> Suelto</label>
+              <label><input type="checkbox"> Oversized</label>
+              <label><input type="checkbox"> Ajustado</label>
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Material Principal</summary>
+            <div class="lista-opciones">
+              <label><input type="checkbox"> Algodón</label>
+              <label><input type="checkbox"> Poliéster</label>
+              <label><input type="checkbox"> Jean</label>
+              <label><input type="checkbox"> Gabardina</label>
+              <div class="materiales-extra" id="materialesExtra" style="display: none;">
+                <label><input type="checkbox"> Viscosa</label>
+                <label><input type="checkbox"> Frisa</label>
+                <label><input type="checkbox"> Lino</label>
+                <label><input type="checkbox"> Microfibra</label>
+                <label><input type="checkbox"> Lycra</label>
+              </div>
+              <button type="button" class="btn-ver-mas" id="btnVerMasMateriales">+ Ver más</button>
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Tipo de estampado</summary>
+            <div class="lista-opciones">
+              <label><input type="checkbox"> Liso</label>
+              <label><input type="checkbox"> Letras</label>
+              <label><input type="checkbox"> Gráfico</label>
+              <label><input type="checkbox"> Color combinado</label>
+              <label><input type="checkbox"> A rayas</label>
+              <label><input type="checkbox"> Geométrico</label>
+            </div>
+          </details>
+
+          <details class="grupo-filtro">
+            <summary class="filtro-titulo">Temporada</summary>
+            <div class="lista-opciones">
+              <label><input type="checkbox"> Verano</label>
+              <label><input type="checkbox"> Invierno</label>
+              <label><input type="checkbox"> Todo el año</label>
+            </div>
+          </details>
+        </div>
+      </aside>
+
+      <div class="products-grid" id="products-grid">
+
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <script th:src="@{/js/E-commerce.js}"></script>
+</body>
+
+</html>
